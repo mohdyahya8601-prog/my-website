@@ -1,0 +1,752 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Yahya | Personal Portfolio</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* BASIC SETTINGS */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 85px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+
+    background:
+    linear-gradient(rgba(0,0,0,0.48),
+    rgba(0,0,0,0.55)),
+    url("back%20ground.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    transition: 0.4s;
+}
+
+/* LIGHT MODE */
+
+body.light-mode {
+    color: #202638;
+
+    background:
+    linear-gradient(rgba(255,255,255,0.35),
+    rgba(255,255,255,0.45)),
+    url("back%20ground.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+body.light-mode nav,
+body.light-mode footer {
+    background: rgba(255,255,255,0.75);
+}
+
+body.light-mode nav h2,
+body.light-mode nav a,
+body.light-mode .clock {
+    color: #202638;
+}
+
+body.light-mode .card,
+body.light-mode .skill-card,
+body.light-mode .info-card,
+body.light-mode .project-card {
+    background: rgba(255,255,255,0.65);
+    color: #202638;
+    border-color: rgba(0,0,0,0.2);
+}
+
+body.light-mode p {
+    color: inherit;
+}
+
+/* NAVBAR */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 7%;
+
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(15px);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+nav h2 {
+    font-size: 25px;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-btn {
+    color: white;
+    text-decoration: none;
+
+    padding: 10px 15px;
+
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 25px;
+
+    background: rgba(255,255,255,0.08);
+
+    transition: 0.3s;
+}
+
+.nav-btn:hover {
+    background: #00bcd4;
+    color: black;
+    transform: translateY(-4px);
+    box-shadow: 0 5px 15px rgba(0,188,212,0.5);
+}
+
+/* CLOCK AND THEME BUTTON */
+
+.clock {
+    background: rgba(255,255,255,0.12);
+    padding: 9px 13px;
+    border-radius: 20px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.theme-btn {
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 19px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.theme-btn:hover {
+    transform: rotate(25deg) scale(1.1);
+}
+
+/* HEADER */
+
+header {
+    text-align: center;
+    padding: 55px 15px 25px;
+}
+
+header h1 {
+    font-size: 45px;
+    text-shadow: 2px 3px 8px black;
+    margin-bottom: 12px;
+}
+
+header p {
+    letter-spacing: 3px;
+    font-size: 14px;
+}
+
+/* SECTION COMMON */
+
+.section-title {
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+.section-subtitle {
+    text-align: center;
+    margin-bottom: 35px;
+    color: #ddd;
+}
+
+/* GALLERY */
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 25px 15px 55px;
+}
+
+.card {
+    width: 280px;
+    padding: 12px;
+    text-align: center;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+
+    transition: 0.4s;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.03);
+}
+
+.card img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.card h2 {
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.card p {
+    margin: 10px;
+    color: #ddd;
+}
+
+/* ABOUT SECTION */
+
+.about-section {
+    padding: 55px 20px;
+    background: rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+.info-card {
+    max-width: 700px;
+    margin: auto;
+    padding: 30px;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 20px;
+
+    line-height: 1.9;
+}
+
+/* SKILLS SECTION */
+
+.skills-section {
+    padding: 55px 20px;
+    text-align: center;
+    background: rgba(0,0,0,0.25);
+}
+
+.skills-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 22px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.skill-card {
+    width: 220px;
+    padding: 25px 15px;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 18px;
+
+    transition: 0.4s;
+}
+
+.skill-card:hover {
+    transform: translateY(-10px);
+    background: rgba(0,188,212,0.3);
+}
+
+.skill-card h2 {
+    margin-bottom: 12px;
+}
+
+.skill-card p {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #ddd;
+}
+
+.skill-tag {
+    display: inline-block;
+    background: rgba(0,229,255,0.2);
+    color: #80f4ff;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+body.light-mode .skill-tag {
+    color: #006477;
+}
+
+/* PROJECTS */
+
+.projects-section {
+    padding: 55px 20px;
+    text-align: center;
+    background: rgba(0,0,0,0.2);
+}
+
+.projects-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.project-card {
+    width: 280px;
+    padding: 25px;
+
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 18px;
+
+    backdrop-filter: blur(12px);
+    transition: 0.4s;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+}
+
+.project-card h2 {
+    margin-bottom: 12px;
+}
+
+.project-card p {
+    line-height: 1.6;
+}
+
+/* CONTACT */
+
+.contact-section {
+    padding: 55px 20px;
+    text-align: center;
+}
+
+.contact-box {
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
+
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 20px;
+
+    backdrop-filter: blur(12px);
+}
+
+.contact-box p {
+    line-height: 1.8;
+}
+
+/* BACK TO TOP */
+
+#topBtn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #00bcd4;
+    color: black;
+
+    font-size: 23px;
+    cursor: pointer;
+
+    display: none;
+    z-index: 99;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+#topBtn:hover {
+    transform: translateY(-6px);
+    background: white;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 25px;
+
+    background: rgba(0,0,0,0.55);
+    letter-spacing: 1px;
+}
+
+footer p {
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width:700px) {
+
+    nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 10px;
+    }
+
+    .nav-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .nav-btn {
+        padding: 8px 11px;
+        font-size: 12px;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .card {
+        width: min(90%, 300px);
+    }
+
+    .skill-card {
+        width: min(90%, 280px);
+    }
+
+}
+
+</style>
+</head>
+
+<body id="home">
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <h2>YAHYA.</h2>
+
+    <div class="nav-links">
+
+        <a href="#home" class="nav-btn">Home</a>
+
+        <a href="#gallery" class="nav-btn">Gallery</a>
+
+        <a href="#skills" class="nav-btn">Skills</a>
+
+        <a href="#about" class="nav-btn">About</a>
+
+        <a href="#projects" class="nav-btn">Projects</a>
+
+        <a href="#contact" class="nav-btn">Contact</a>
+
+        <span class="clock" id="clock">00:00:00</span>
+
+        <button class="theme-btn"
+        id="themeBtn" onclick="toggleTheme()"
+        title="Change Theme">☀</button>
+
+    </div>
+
+</nav>
+
+<!-- HOME -->
+
+<header>
+
+    <h1>Welcome Yahya!</h1>
+
+    <p>MY PERSONAL PORTFOLIO</p>
+
+</header>
+
+<!-- GALLERY -->
+
+<section id="gallery">
+
+    <h1 class="section-title">MY GALLERY</h1>
+
+    <p class="section-subtitle">Beautiful Memories</p>
+
+    <div class="gallery">
+
+        <div class="card">
+
+            <img src="photo 2.png">
+
+            <h2>My First Photo</h2>
+
+            <p>Beautiful Memories</p>
+
+        </div>
+
+        <div class="card">
+
+            <img src="photo 1.png">
+
+            <h2>My Second Photo</h2>
+
+            <p>Life Moments</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="about-section" id="about">
+
+    <h1 class="section-title">ABOUT ME</h1>
+
+    <p class="section-subtitle">Get to know me</p>
+
+    <div class="info-card">
+
+        <h2>Hello! I am Yahya.</h2>
+
+        <p>
+            Welcome to my personal website!
+            I am a student who loves technology,
+            creativity and learning new things.
+            I am exploring web development and
+            improving my skills every day.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- SKILLS -->
+
+<section class="skills-section" id="skills">
+
+    <h1 class="section-title">MY SKILLS</h1>
+
+    <p class="section-subtitle">
+        Things I am learning and improving
+    </p>
+
+    <div class="skills-container">
+
+        <div class="skill-card">
+            <h2>HTML</h2>
+            <p>Website Structure</p>
+            <span class="skill-tag">Learning</span>
+        </div>
+
+        <div class="skill-card">
+            <h2>CSS</h2>
+            <p>Website Designing</p>
+            <span class="skill-tag">Learning</span>
+        </div>
+
+        <div class="skill-card">
+            <h2>Java</h2>
+            <p>Programming</p>
+            <span class="skill-tag">Beginner</span>
+        </div>
+
+        <div class="skill-card">
+            <h2>Photo Editing</h2>
+            <p>Creative Editing</p>
+            <span class="skill-tag">Learning</span>
+        </div>
+
+        <div class="skill-card">
+            <h2>Graphic Design</h2>
+            <p>Creative Designing</p>
+            <span class="skill-tag">Learning</span>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PROJECTS -->
+
+<section class="projects-section" id="projects">
+
+    <h1 class="section-title">MY PROJECTS</h1>
+
+    <p class="section-subtitle">Things I have created</p>
+
+    <div class="projects-container">
+
+        <div class="project-card">
+            <h2>My Portfolio</h2>
+            <p>My first personal website made using HTML and CSS.</p>
+        </div>
+
+        <div class="project-card">
+            <h2>Java Programs</h2>
+            <p>My beginner programming practice and exercises.</p>
+        </div>
+
+        <div class="project-card">
+            <h2>Creative Designs</h2>
+            <p>My creative design and editing experiments.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section class="contact-section" id="contact">
+
+    <h1 class="section-title">CONTACT</h1>
+
+    <p class="section-subtitle">Thank you for visiting my website</p>
+
+    <div class="contact-box">
+
+        <h2>Let's Stay Connected!</h2>
+
+        <p>
+            Thanks for exploring my personal portfolio.
+            Keep learning and stay creative!
+        </p>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h3>Thank You For Visiting!</h3>
+
+    <p>© 2026 Yahya. All Rights Reserved.</p>
+
+</footer>
+
+<!-- BACK TO TOP BUTTON -->
+
+<button id="topBtn" onclick="goToTop()"
+title="Back to Top">↑</button>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+// LIVE DIGITAL CLOCK
+
+function updateClock() {
+
+    let now = new Date();
+
+    let time = now.toLocaleTimeString("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+    });
+
+    document.getElementById("clock").innerText = time;
+
+}
+
+updateClock();
+
+setInterval(updateClock, 1000);
+
+
+// DARK AND LIGHT MODE
+
+function toggleTheme() {
+
+    document.body.classList.toggle("light-mode");
+
+    let button = document.getElementById("themeBtn");
+
+    if (document.body.classList.contains("light-mode")) {
+
+        button.innerText = "☾";
+
+    } else {
+
+        button.innerText = "☀";
+
+    }
+
+}
+
+
+// BACK TO TOP BUTTON
+
+let topButton = document.getElementById("topBtn");
+
+window.addEventListener("scroll", function() {
+
+    if (window.scrollY > 250) {
+
+        topButton.style.display = "block";
+
+    } else {
+
+        topButton.style.display = "none";
+
+    }
+
+});
+
+function goToTop() {
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
