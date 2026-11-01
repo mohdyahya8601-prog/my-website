@@ -464,6 +464,150 @@ footer p {
     object-fit: contain !important;
     object-position: center center !important;
 }
+
+/* MODERN POLISH */
+:root {
+    --accent: #00e5ff;
+    --accent-2: #8b5cf6;
+    --glass-border: rgba(255,255,255,0.30);
+}
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #171923;
+}
+::selection { background: var(--accent); color: #10131b; }
+a, button { -webkit-tap-highlight-color: transparent; }
+.nav-btn, .theme-btn, .share-btn, #topBtn {
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.nav-btn:hover, .share-btn:hover {
+    box-shadow: 0 0 18px rgba(0,229,255,.45);
+}
+header h1 {
+    animation: riseIn .8s ease both;
+}
+header p { animation: riseIn .9s ease both; }
+.section-title { text-shadow: 0 3px 18px rgba(0,0,0,.25); }
+.card, .skill-card, .project-card, .info-card, .contact-box {
+    box-shadow: 0 12px 32px rgba(0,0,0,.24);
+}
+.card {
+    overflow: hidden;
+    cursor: zoom-in;
+}
+.card img {
+    display: block;
+    object-fit: cover;
+    transition: transform .45s ease, filter .45s ease;
+}
+.card:hover img {
+    transform: scale(1.035);
+    filter: saturate(1.08);
+}
+/* Keep the fourth photo fully visible inside its frame. */
+.card:nth-child(4) img {
+    object-fit: contain !important;
+    object-position: center center !important;
+    background: rgba(0,0,0,.12);
+}
+.nav-btn:focus-visible, button:focus-visible, .card:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+.share-btn {
+    color: white;
+    border: 1px solid rgba(255,255,255,.45);
+    border-radius: 22px;
+    padding: 9px 13px;
+    background: rgba(0,229,255,.16);
+    cursor: pointer;
+    font: inherit;
+    white-space: nowrap;
+}
+.share-btn:hover { transform: translateY(-2px); background: rgba(0,229,255,.30); }
+body.light-mode .share-btn { color: #202638; border-color: rgba(0,0,0,.25); }
+body.light-mode .nav-btn { border-color: rgba(0,0,0,.22); }
+body.light-mode .section-subtitle { color: #343b4d; }
+body.light-mode .card p,
+body.light-mode .skill-card p { color: #343b4d; }
+
+/* Full-screen photo viewer */
+.photo-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(5,8,15,.92);
+    backdrop-filter: blur(12px);
+}
+.photo-modal.open { display: flex; }
+.photo-modal img {
+    max-width: min(92vw, 1100px);
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 0 35px rgba(0,229,255,.15);
+}
+.photo-modal .modal-caption {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 18px;
+    color: #fff;
+    text-align: center;
+}
+.photo-modal .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255,255,255,.5);
+    border-radius: 50%;
+    background: rgba(255,255,255,.12);
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+body.modal-open { overflow: hidden; }
+
+@keyframes riseIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+@media (max-width: 700px) {
+    html { scroll-padding-top: 150px; }
+    nav { position: sticky; }
+    .nav-links { gap: 7px; }
+    .clock { font-size: 12px; padding: 7px 9px; }
+    .theme-btn { flex: 0 0 38px; }
+    .share-btn { padding: 8px 10px; font-size: 12px; }
+    header { padding: 38px 14px 22px; }
+    .gallery { gap: 18px; padding: 20px 12px 40px; }
+    .card { width: min(100%, 340px); }
+    .card img { height: 350px; }
+    .about-section, .skills-section, .projects-section, .contact-section {
+        padding: 42px 14px;
+    }
+    .info-card, .contact-box { padding: 22px 16px; }
+}
+@media (max-width: 380px) {
+    .nav-btn { padding: 7px 9px; font-size: 11px; }
+    .card img { height: 300px; }
+}
+
 </style>
 </head>
 
@@ -494,6 +638,8 @@ footer p {
         <button class="theme-btn"
         id="themeBtn" onclick="toggleTheme()"
         title="Change Theme">☀</button>
+
+        <button class="share-btn" id="shareBtn" type="button" onclick="shareWebsite()">Share ↗</button>
 
     </div>
 
@@ -556,6 +702,7 @@ footer p {
         <p>My Village Mosque</p>
     </div>
         
+</div>
 </section>
 
 <!-- ABOUT -->
@@ -688,6 +835,14 @@ footer p {
 
 </footer>
 
+
+<!-- FULL-SIZE PHOTO VIEWER -->
+<div class="photo-modal" id="photoModal" role="dialog" aria-modal="true" aria-label="Full-size photo viewer">
+    <button class="modal-close" type="button" id="modalClose" aria-label="Close photo viewer">&times;</button>
+    <img id="modalImage" src="" alt="Full-size gallery photo">
+    <p class="modal-caption" id="modalCaption"></p>
+</div>
+
 <!-- BACK TO TOP BUTTON -->
 
 <button id="topBtn" onclick="goToTop()"
@@ -721,24 +876,102 @@ setInterval(updateClock, 1000);
 
 // DARK AND LIGHT MODE
 
-function toggleTheme() {
-
-    document.body.classList.toggle("light-mode");
-
-    let button = document.getElementById("themeBtn");
-
-    if (document.body.classList.contains("light-mode")) {
-
-        button.innerText = "☾";
-
-    } else {
-
-        button.innerText = "☀";
-
+function applyTheme(theme) {
+    const isLight = theme === "light";
+    document.body.classList.toggle("light-mode", isLight);
+    const button = document.getElementById("themeBtn");
+    if (button) {
+        button.innerText = isLight ? "☾" : "☀";
+        button.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+        button.title = isLight ? "Switch to dark mode" : "Switch to light mode";
     }
-
 }
 
+function toggleTheme() {
+    const nextTheme = document.body.classList.contains("light-mode") ? "dark" : "light";
+    applyTheme(nextTheme);
+    try { localStorage.setItem("yahya-portfolio-theme", nextTheme); } catch (error) {}
+}
+
+// Restore the visitor's previous theme choice.
+try {
+    const savedTheme = localStorage.getItem("yahya-portfolio-theme");
+    if (savedTheme === "light" || savedTheme === "dark") applyTheme(savedTheme);
+} catch (error) {}
+
+
+
+// OPEN GALLERY PHOTOS IN A FULL-SCREEN VIEWER
+const photoModal = document.getElementById("photoModal");
+const modalImage = document.getElementById("modalImage");
+const modalCaption = document.getElementById("modalCaption");
+const modalClose = document.getElementById("modalClose");
+let lastFocusedElement = null;
+
+document.querySelectorAll(".card img").forEach(function (photo) {
+    photo.tabIndex = 0;
+    photo.setAttribute("role", "button");
+    photo.setAttribute("aria-label", "Open " + (photo.alt || "photo") + " full size");
+
+    function openPhoto() {
+        lastFocusedElement = photo;
+        modalImage.src = photo.src;
+        modalImage.alt = photo.alt || "Gallery photo";
+        const title = photo.closest(".card").querySelector("h2");
+        modalCaption.textContent = title ? title.textContent : (photo.alt || "");
+        photoModal.classList.add("open");
+        document.body.classList.add("modal-open");
+        modalClose.focus();
+    }
+
+    photo.addEventListener("click", openPhoto);
+    photo.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openPhoto();
+        }
+    });
+});
+
+function closePhoto() {
+    photoModal.classList.remove("open");
+    document.body.classList.remove("modal-open");
+    modalImage.src = "";
+    if (lastFocusedElement) lastFocusedElement.focus();
+}
+modalClose.addEventListener("click", closePhoto);
+photoModal.addEventListener("click", function (event) {
+    if (event.target === photoModal) closePhoto();
+});
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && photoModal.classList.contains("open")) closePhoto();
+});
+
+// COPY OR SHARE THE LIVE WEBSITE LINK
+async function shareWebsite() {
+    const shareData = {
+        title: "Yahya | Personal Portfolio",
+        text: "Check out my personal portfolio website!",
+        url: window.location.href
+    };
+    const button = document.getElementById("shareBtn");
+    try {
+        if (navigator.share) {
+            await navigator.share(shareData);
+        } else if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(shareData.url);
+            const oldText = button.textContent;
+            button.textContent = "Copied ✓";
+            setTimeout(function () { button.textContent = oldText; }, 1800);
+        } else {
+            window.prompt("Copy your website link:", shareData.url);
+        }
+    } catch (error) {
+        if (error.name !== "AbortError") {
+            window.prompt("Copy your website link:", shareData.url);
+        }
+    }
+}
 
 // BACK TO TOP BUTTON
 
