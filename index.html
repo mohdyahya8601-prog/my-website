@@ -1,12 +1,30 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
 <title>Yahya | Personal Portfolio</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<meta name="description" content="Welcome to Yahya's personal portfolio. Explore my photography gallery, creative work, projects and skills in web development and design.">
+
+<meta name="keywords" content="Yahya, personal portfolio, web development, photography, creative design, student portfolio">
+
+<meta name="author" content="Yahya">
+
+<meta name="robots" content="index, follow">
+
+<meta name="theme-color" content="#101827">
+
+<meta property="og:title" content="Yahya | Personal Portfolio">
+
+<meta property="og:description" content="Explore Yahya's gallery, skills, creative work and projects.">
+
+<meta property="og:type" content="website">
+
+<meta property="og:url" content="https://mohdyahya8601-prog.github.io/my-website/">
+    
 <style>
 
 /* MODERN MINIMAL WHITE + BLACK DESIGN */
@@ -477,6 +495,144 @@ body.modal-open {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ==================================
+   PROFESSIONAL PORTFOLIO UPGRADE
+================================== */
+
+/* Modern gallery layout */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    width: 100%;
+    max-width: 1250px;
+    margin: auto;
+    padding: 30px 25px 60px;
+    align-items: stretch;
+}
+
+/* Equal size gallery cards */
+.card {
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    background: rgba(15,23,42,0.68);
+    backdrop-filter: blur(14px);
+    transition: transform .35s ease,
+                box-shadow .35s ease,
+                border-color .35s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: #00e5ff;
+    box-shadow: 0 15px 35px rgba(0,229,255,0.18);
+}
+
+/* Consistent image frames */
+.card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 13px;
+}
+
+/* Keep your fourth photo fully visible */
+.card:nth-child(4) img {
+    object-fit: contain !important;
+}
+
+/* Better text spacing */
+.card h2 {
+    margin: 16px 5px 5px;
+}
+
+.card p {
+    line-height: 1.6;
+    margin: 8px 5px 12px;
+}
+
+/* Scroll reveal animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Smooth section spacing */
+.about-section,
+.skills-section,
+.projects-section,
+.contact-section {
+    padding: 65px 20px;
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 700px) {
+    .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        padding: 20px 12px 40px;
+    }
+
+    .card {
+        padding: 8px;
+        border-radius: 15px;
+    }
+
+    .card img {
+        height: 230px;
+    }
+
+    .card h2 {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .card p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    header h1 {
+        font-size: clamp(27px, 8vw, 36px);
+    }
+
+    .section-title {
+        font-size: 27px;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .card img {
+        height: 300px;
+    }
+}
+
+/* Respect visitors who prefer less animation */
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
     
 </style>
 </head>
@@ -847,6 +1003,31 @@ function goToTop() {
 
 }
 
+// PROFESSIONAL SCROLL ANIMATIONS
+
+const revealItems = document.querySelectorAll(
+    ".section-title, .section-subtitle, .card, .skill-card, .project-card, .info-card, .contact-box"
+);
+
+revealItems.forEach(function(item) {
+    item.classList.add("reveal");
+});
+
+const revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.12
+});
+
+revealItems.forEach(function(item) {
+    revealObserver.observe(item);
+});
+    
 </script>
 
 </body>
